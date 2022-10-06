@@ -14,6 +14,8 @@ import org.osmdroid.views.MapView
 
 class MainActivity : AppCompatActivity() {
 
+    var permissionsGranted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, LOCATION_SERVICE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         } else {
-            initService()
+           permissionsGranted = true
         }
     }
 
@@ -41,13 +43,9 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 0 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            initService()
+            permissionsGranted = true
         } else {
             AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage("GPS permission denied").show()
         }
-    }
-
-    private fun initService() {
-        // TODO start, and if necessary bind, your service
     }
 }
