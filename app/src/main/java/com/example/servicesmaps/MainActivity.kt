@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     var permissionsGranted = false
 
+    // Add your service as an attribute of the main activity (nullable)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
