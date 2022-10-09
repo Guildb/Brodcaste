@@ -28,13 +28,15 @@ class MainActivity : AppCompatActivity() {
         map1.controller?.setZoom(14.0)
         map1.controller?.setCenter(GeoPoint(51.05, -0.72))
         requestPermissions()
+
     }
 
     fun requestPermissions() {
         if (ContextCompat.checkSelfPermission(this, LOCATION_SERVICE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 0)
         } else {
-           permissionsGranted = true
+            permissionsGranted = true
+            initService()
         }
     }
 
@@ -46,8 +48,13 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode == 0 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             permissionsGranted = true
+            initService()
         } else {
             AlertDialog.Builder(this).setPositiveButton("OK", null).setMessage("GPS permission denied").show()
         }
+    }
+
+    fun initService() {
+        // Start and bind the service here...
     }
 }
